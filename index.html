@@ -1,594 +1,943 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Victor Barros — Data Analyst & Analytics Engineer</title>
-<meta name="description" content="Data Analyst & Analytics Engineer specializing in SQL, Python, Power BI, Snowflake and AWS. Building pipelines, KPIs and dashboards that drive business decisions.">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victor Barros — Analista de Dados & Analytics Engineer</title>
+  <meta name="description"
+    content="Analista de Dados & Analytics Engineer especializado em SQL, Python, Power BI, Snowflake e AWS. Construindo pipelines, modelos analíticos e dashboards que sustentam decisões de negócio.">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --teal: #00c8c8;
-    --teal-dim: #006868;
-    --teal-glow: rgba(0,200,200,0.12);
-    --bg: #050808;
-    --bg2: #0d1517;
-    --bg3: #111d1f;
-    --border: rgba(0,200,200,0.15);
-    --border-hover: rgba(0,200,200,0.4);
-    --text: #f0f0f0;
-    --text-muted: #8a9a9a;
-    --text-dim: #506060;
-    --radius: 10px;
-    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  }
+    :root {
+      --teal: #00c8c8;
+      --teal-dim: #006868;
+      --teal-glow: rgba(0, 200, 200, 0.12);
+      --bg: #050808;
+      --bg2: #0d1517;
+      --bg3: #111d1f;
+      --border: rgba(0, 200, 200, 0.15);
+      --border-hover: rgba(0, 200, 200, 0.4);
+      --text: #f0f0f0;
+      --text-muted: #8a9a9a;
+      --text-dim: #506060;
+      --radius: 10px;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-  html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 48px;
-    transition: background 0.3s, backdrop-filter 0.3s;
-  }
-  nav.scrolled {
-    background: rgba(5,8,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-size: 20px; font-weight: 700; color: var(--teal); letter-spacing: 1px;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none; font-size: 14px;
-    letter-spacing: 0.5px; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--teal); }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      transition: background 0.3s, backdrop-filter 0.3s;
+    }
 
-  /* ── HERO ── */
-  #hero {
-    position: relative; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  #constellation { position: absolute; inset: 0; }
+    nav.scrolled {
+      background: rgba(5, 8, 8, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-  .hero-content {
-    position: relative; z-index: 2;
-    text-align: center; max-width: 720px; padding: 0 24px;
-  }
-  .hero-tag {
-    display: inline-block;
-    border: 1px solid var(--border-hover);
-    color: var(--teal); font-size: 12px; letter-spacing: 2px;
-    padding: 6px 18px; border-radius: 20px; margin-bottom: 28px;
-    text-transform: uppercase;
-  }
-  .hero-name {
-    font-size: clamp(44px, 8vw, 80px);
-    font-weight: 700; letter-spacing: -1px;
-    color: #fff; line-height: 1.05;
-    margin-bottom: 16px;
-  }
-  .hero-name span { color: var(--teal); }
-  .hero-sub {
-    font-size: 17px; color: var(--text-muted);
-    max-width: 520px; margin: 0 auto 36px;
-  }
-  .hero-stats {
-    display: flex; gap: 40px; justify-content: center;
-    margin-bottom: 44px; flex-wrap: wrap;
-  }
-  .stat { text-align: center; }
-  .stat-n { font-size: 26px; font-weight: 700; color: var(--teal); }
-  .stat-l { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; }
-  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
 
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 26px; border-radius: var(--radius);
-    font-size: 14px; font-weight: 500; text-decoration: none;
-    transition: all 0.2s; cursor: pointer; border: none;
-    letter-spacing: 0.3px;
-  }
-  .btn-primary {
-    background: var(--teal); color: #050808;
-  }
-  .btn-primary:hover { background: #00e0e0; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent; color: var(--teal);
-    border: 1px solid var(--border-hover);
-  }
-  .btn-outline:hover { background: var(--teal-glow); transform: translateY(-1px); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
 
-  .scroll-hint {
-    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: var(--text-dim); font-size: 12px; letter-spacing: 1px; z-index: 2;
-  }
-  .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--teal-dim), transparent); }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
 
-  /* ── SECTIONS ── */
-  section { padding: 100px 0; }
-  .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+    .nav-links a:hover {
+      color: var(--teal);
+    }
 
-  .section-label {
-    font-size: 11px; letter-spacing: 3px; color: var(--teal);
-    text-transform: uppercase; margin-bottom: 12px;
-  }
-  .section-title {
-    font-size: clamp(28px, 4vw, 40px); font-weight: 700;
-    color: #fff; margin-bottom: 48px; line-height: 1.2;
-  }
-  .section-title span { color: var(--teal); }
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  .about-bio { font-size: 15px; color: var(--text-muted); line-height: 1.85; }
-  .about-bio p + p { margin-top: 16px; }
-  .about-bio strong { color: var(--text); }
-  .about-facts { display: flex; flex-direction: column; gap: 16px; }
-  .fact-row {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 14px 18px; background: var(--bg3);
-    border: 1px solid var(--border); border-radius: var(--radius);
-  }
-  .fact-icon { color: var(--teal); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
-  .fact-label { font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
-  .fact-val { font-size: 14px; color: var(--text); margin-top: 1px; }
+    #constellation {
+      position: absolute;
+      inset: 0;
+    }
 
-  /* ── SKILLS ── */
-  .skills-grid { display: flex; flex-direction: column; gap: 24px; }
-  .skill-group {
-    padding: 24px 28px; background: var(--bg2);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    transition: border-color 0.2s;
-  }
-  .skill-group:hover { border-color: var(--border-hover); }
-  .skill-group-label {
-    font-size: 11px; letter-spacing: 2px; color: var(--teal);
-    text-transform: uppercase; margin-bottom: 14px;
-  }
-  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    padding: 5px 14px; border-radius: 20px; font-size: 13px;
-    background: rgba(0,200,200,0.06); color: var(--text-muted);
-    border: 1px solid var(--border);
-  }
-  .chip.featured {
-    background: rgba(0,200,200,0.12); color: var(--teal);
-    border-color: rgba(0,200,200,0.3);
-  }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      padding: 0 24px;
+    }
 
-  /* ── PROJECTS ── */
-  #projects { background: var(--bg2); }
-  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .project-card {
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: 14px; padding: 28px; display: flex; flex-direction: column;
-    transition: border-color 0.25s, transform 0.25s;
-    position: relative; overflow: hidden;
-  }
-  .project-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--teal), transparent);
-    opacity: 0; transition: opacity 0.25s;
-  }
-  .project-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
-  .project-card:hover::before { opacity: 1; }
-  .project-card.featured { border-color: rgba(0,200,200,0.3); }
-  .project-card.featured::before { opacity: 0.5; }
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--border-hover);
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
 
-  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-  .project-category {
-    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--teal-dim); font-weight: 500;
-  }
-  .badge-featured {
-    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-    color: var(--teal); border: 1px solid rgba(0,200,200,0.35);
-    padding: 3px 10px; border-radius: 10px;
-  }
-  .project-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 10px; line-height: 1.3; }
-  .project-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; flex: 1; margin-bottom: 20px; }
-  .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
-  .project-tag {
-    font-size: 11px; padding: 3px 10px; border-radius: 6px;
-    background: rgba(0,200,200,0.07); color: var(--text-dim);
-    border: 1px solid var(--border);
-  }
-  .project-links { display: flex; gap: 12px; }
-  .project-link {
-    font-size: 12px; color: var(--teal); text-decoration: none;
-    border: 1px solid var(--border-hover); padding: 6px 14px; border-radius: 6px;
-    transition: background 0.2s; display: flex; align-items: center; gap: 6px;
-  }
-  .project-link:hover { background: var(--teal-glow); }
+    .hero-name {
+      font-size: clamp(44px, 8vw, 80px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
 
-  /* ── CONTACT ── */
-  #contact { text-align: center; }
-  .contact-sub { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 44px; }
-  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero-name span {
+      color: var(--teal);
+    }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border); padding: 28px 32px;
-    text-align: center; color: var(--text-dim); font-size: 13px;
-  }
-  footer a { color: var(--teal-dim); text-decoration: none; }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
 
-  /* ── DIVIDER ── */
-  .teal-line {
-    width: 48px; height: 2px; background: var(--teal);
-    margin-bottom: 32px;
-  }
+    .hero-stack {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 44px;
+      flex-wrap: wrap;
+    }
 
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .nav-links { gap: 20px; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .hero-stats { gap: 24px; }
-  }
-</style>
+    .stack-chip {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(0, 200, 200, 0.08);
+      color: var(--teal);
+      border: 1px solid rgba(0, 200, 200, 0.25);
+      letter-spacing: 0.3px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 26px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #050808;
+    }
+
+    .btn-primary:hover {
+      background: #00e0e0;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--teal);
+      border: 1px solid var(--border-hover);
+    }
+
+    .btn-outline:hover {
+      background: var(--teal-glow);
+      transform: translateY(-1px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 12px;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--teal-dim), transparent);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 48px;
+      line-height: 1.2;
+    }
+
+    .section-title span {
+      color: var(--teal);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--bg2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-bio {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    .about-bio p+p {
+      margin-top: 16px;
+    }
+
+    .about-bio strong {
+      color: var(--text);
+    }
+
+    .about-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .fact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .fact-icon {
+      color: var(--teal);
+      font-size: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .fact-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .fact-val {
+      font-size: 14px;
+      color: var(--text);
+      margin-top: 1px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .skill-group {
+      padding: 24px 28px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover {
+      border-color: var(--border-hover);
+    }
+
+    .skill-group-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      background: rgba(0, 200, 200, 0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .chip.featured {
+      background: rgba(0, 200, 200, 0.12);
+      color: var(--teal);
+      border-color: rgba(0, 200, 200, 0.3);
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: var(--bg2);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card.featured {
+      border-color: rgba(0, 200, 200, 0.3);
+    }
+
+    .project-card.featured::before {
+      opacity: 0.5;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .project-category {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-dim);
+      font-weight: 500;
+    }
+
+    .badge-featured {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0, 200, 200, 0.35);
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+
+    .project-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(0, 200, 200, 0.07);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .project-link {
+      font-size: 12px;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid var(--border-hover);
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .project-link:hover {
+      background: var(--teal-glow);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 44px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 32px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--teal-dim);
+      text-decoration: none;
+    }
+
+    /* ── DIVIDER ── */
+    .teal-line {
+      width: 48px;
+      height: 2px;
+      background: var(--teal);
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a class="nav-logo" href="#">VB</a>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <canvas id="constellation"></canvas>
-  <div class="hero-content">
-    <div class="hero-tag">Data Analyst &amp; Analytics Engineer</div>
-    <h1 class="hero-name">Victor <span>Barros</span></h1>
-    <p class="hero-sub">Building pipelines, regulatory KPIs and dashboards that turn complex data into decisions that actually move the needle.</p>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-n">2+</div><div class="stat-l">Years in Data</div></div>
-      <div class="stat"><div class="stat-n">67%</div><div class="stat-l">Report Time Reduced</div></div>
-      <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Tables Automated</div></div>
-      <div class="stat"><div class="stat-n">6M+</div><div class="stat-l">Consumers Impacted</div></div>
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="nav-logo" href="#">VB</a>
+    <div class="nav-links">
+      <a href="#about">Sobre</a>
+      <a href="#skills">Habilidades</a>
+      <a href="#projects">Projetos</a>
+      <a href="#contact">Contato</a>
     </div>
-    <div class="hero-ctas">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="https://github.com/victorcbarros" target="_blank" class="btn btn-outline">GitHub</a>
-      <a href="https://linkedin.com/in/victorcbarros" target="_blank" class="btn btn-outline">LinkedIn</a>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <span>SCROLL</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
+  </nav>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-label">About me</div>
-    <div class="teal-line"></div>
-    <div class="about-grid">
-      <div class="about-bio">
-        <p>I'm a <strong>Data Analyst</strong> currently at <strong>Neoenergia Coelba</strong> — the largest energy distributor in Northeast Brazil (6M+ consumers) — where I own the analytical layer for commercial service planning: regulatory KPIs, demand modeling, productivity dashboards and pipeline automation in SQL and Python.</p>
-        <p>Before that, I worked at <strong>Dadosfera</strong> as a Data Solutions Engineer, building ETL pipelines on Snowflake for international clients, and automating table documentation with LLMs (OpenAI API) at scale.</p>
-        <p>My background is in <strong>Electrical Engineering</strong> (IFBA, TCC grade 9.8), which gives me an unusual edge: I understand operations, systems thinking and process optimization — not just the data layer. Certified in Google Cloud Data Analytics, Apache Airflow, and Green Belt Lean Six Sigma.</p>
-        <p>I also published a <strong>peer-reviewed research paper</strong> on electrical grid outage patterns in Northeast Brazil in the <em>Brazilian Journal of Development</em>.</p>
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="constellation"></canvas>
+    <div class="hero-content">
+      <div class="hero-tag">Analista de Dados &amp; Analytics Engineer</div>
+      <h1 class="hero-name">Victor <span>Barros</span></h1>
+      <p class="hero-sub">Transformando dados em decisões através de pipelines, modelos analíticos e dashboards que
+        movem o negócio.</p>
+      <div class="hero-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">SQL</span>
+        <span class="stack-chip">Power BI</span>
+        <span class="stack-chip">Snowflake</span>
+        <span class="stack-chip">AWS</span>
+        <span class="stack-chip">dbt</span>
+        <span class="stack-chip">Airflow</span>
+        <span class="stack-chip">Docker</span>
       </div>
-      <div class="about-facts">
-        <div class="fact-row">
-          <div class="fact-icon">⚡</div>
-          <div>
-            <div class="fact-label">Current Role</div>
-            <div class="fact-val">Data Analyst — Neoenergia Coelba</div>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">Ver Projetos</a>
+        <a href="https://github.com/victorcbarros" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="https://linkedin.com/in/victorcbarros" target="_blank" class="btn btn-outline">LinkedIn</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">Sobre mim</div>
+      <div class="teal-line"></div>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>Sou <strong>Analista de Dados</strong> na <strong>Neoenergia Coelba</strong> — maior distribuidora de
+            energia elétrica do Nordeste (6M+ consumidores) — onde sou responsável pela camada analítica de planejamento
+            de serviços comerciais: modelagem de dados, dashboards em Power BI e automação de pipelines em SQL e Python.
+          </p>
+          <p>Antes, atuei na <strong>Dadosfera</strong> como Engenheiro de Soluções em Dados, construindo pipelines ETL
+            no Snowflake para clientes internacionais e automatizando documentação de dados com LLMs (API OpenAI) em
+            larga escala.</p>
+          <p>Minha formação é em <strong>Engenharia Elétrica</strong> (IFBA, TCC nota 9.8), o que me dá uma visão
+            diferenciada: entendo operações, sistemas e melhoria de processos — não só a camada de dados. Certificado em
+            Google Cloud Data Analytics, Apache Airflow e Green Belt Lean Seis Sigma.</p>
+          <p>Também publiquei um <strong>artigo científico</strong> sobre padrões de interrupções no sistema elétrico do
+            Nordeste no <em>Brazilian Journal of Development</em>.</p>
+        </div>
+        <div class="about-facts">
+          <div class="fact-row">
+            <div class="fact-icon">⚡</div>
+            <div>
+              <div class="fact-label">Cargo Atual</div>
+              <div class="fact-val">Analista de Dados — Neoenergia Coelba</div>
+            </div>
+          </div>
+          <div class="fact-row">
+            <div class="fact-icon">📍</div>
+            <div>
+              <div class="fact-label">Localização</div>
+              <div class="fact-val">Salvador, Bahia, Brasil</div>
+            </div>
+          </div>
+          <div class="fact-row">
+            <div class="fact-icon">🎓</div>
+            <div>
+              <div class="fact-label">Formação</div>
+              <div class="fact-val">Eng. Elétrica — IFBA · Pós-graduação Data Analytics — FIAP</div>
+            </div>
+          </div>
+          <div class="fact-row">
+            <div class="fact-icon">🌐</div>
+            <div>
+              <div class="fact-label">Idiomas</div>
+              <div class="fact-val">Português (Nativo) · Inglês (Avançado)</div>
+            </div>
+          </div>
+          <div class="fact-row">
+            <div class="fact-icon">📄</div>
+            <div>
+              <div class="fact-label">Publicação Científica</div>
+              <div class="fact-val">Brazilian Journal of Development, Dez 2023</div>
+            </div>
           </div>
         </div>
-        <div class="fact-row">
-          <div class="fact-icon">📍</div>
-          <div>
-            <div class="fact-label">Location</div>
-            <div class="fact-val">Salvador, Bahia, Brazil</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">Stack Técnica</div>
+      <h2 class="section-title">Habilidades &amp; <span>Ferramentas</span></h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-label">Analytics &amp; BI</div>
+          <div class="skill-chips">
+            <span class="chip featured">Power BI</span>
+            <span class="chip featured">DAX</span>
+            <span class="chip">Star Schema</span>
+            <span class="chip">DirectQuery</span>
+            <span class="chip">RLS</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">Metabase</span>
+            <span class="chip">Excel (Advanced)</span>
           </div>
         </div>
-        <div class="fact-row">
-          <div class="fact-icon">🎓</div>
-          <div>
-            <div class="fact-label">Education</div>
-            <div class="fact-val">B.Eng Electrical — IFBA · Postgrad Data Analytics — FIAP</div>
+        <div class="skill-group">
+          <div class="skill-group-label">Linguagens &amp; Dados</div>
+          <div class="skill-chips">
+            <span class="chip featured">Python</span>
+            <span class="chip featured">SQL</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">NumPy</span>
+            <span class="chip">SQLAlchemy</span>
+            <span class="chip">FastAPI</span>
+            <span class="chip">Scikit-learn</span>
+            <span class="chip">Matplotlib</span>
+            <span class="chip">Seaborn</span>
           </div>
         </div>
-        <div class="fact-row">
-          <div class="fact-icon">🌐</div>
-          <div>
-            <div class="fact-label">Languages</div>
-            <div class="fact-val">Portuguese (Native) · English (Advanced)</div>
+        <div class="skill-group">
+          <div class="skill-group-label">Engenharia de Dados</div>
+          <div class="skill-chips">
+            <span class="chip featured">Snowflake</span>
+            <span class="chip featured">dbt Core</span>
+            <span class="chip featured">Apache Airflow</span>
+            <span class="chip">ETL / ELT</span>
+            <span class="chip">AWS S3</span>
+            <span class="chip">Databricks</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">SAP HANA</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">Docker</span>
           </div>
         </div>
-        <div class="fact-row">
-          <div class="fact-icon">📄</div>
-          <div>
-            <div class="fact-label">Published Research</div>
-            <div class="fact-val">Brazilian Journal of Development, Dec 2023</div>
+        <div class="skill-group">
+          <div class="skill-group-label">IA &amp; Metodologia</div>
+          <div class="skill-chips">
+            <span class="chip featured">LLMs</span>
+            <span class="chip">OpenAI API</span>
+            <span class="chip">RAG</span>
+            <span class="chip">Prompt Engineering</span>
+            <span class="chip">Lean Six Sigma Green Belt</span>
+            <span class="chip">Root Cause Analysis</span>
+            <span class="chip">Git</span>
+            <span class="chip">Linux / Bash</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-label">Technical Stack</div>
-    <h2 class="section-title">Skills &amp; <span>Tools</span></h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-label">Analytics &amp; BI</div>
-        <div class="skill-chips">
-          <span class="chip featured">Power BI</span>
-          <span class="chip featured">DAX</span>
-          <span class="chip">Star Schema</span>
-          <span class="chip">DirectQuery</span>
-          <span class="chip">RLS</span>
-          <span class="chip">Streamlit</span>
-          <span class="chip">Metabase</span>
-          <span class="chip">Excel (Advanced)</span>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">Trabalhos &amp; Projetos</div>
+      <h2 class="section-title">O que eu <span>Construí</span></h2>
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card featured">
+          <div class="project-header">
+            <span class="project-category">Análise de Dados · Energia</span>
+            <span class="badge-featured">Publicado</span>
+          </div>
+          <div class="project-title">Análise de Interrupções no Sistema Elétrico — Nordeste</div>
+          <p class="project-desc">Análise dos dados de interrupções na rede de distribuição do Nordeste em 2023 usando
+            dados públicos da ANEEL. Investigou frequência, duração, impacto nos consumidores e correlação com índices
+            de chuva. Pesquisa publicada no Brazilian Journal of Development.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag">Matplotlib</span>
+            <span class="project-tag">NumPy</span>
+            <span class="project-tag">Statistical Analysis</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/victorcbarros/Analise-rede-eletrica-nordeste" target="_blank"
+              class="project-link">GitHub →</a>
+            <a href="https://medium.com/@victorcbarros/análise-de-dados-das-interrupções-no-sistema-elétrico-de-distribuição-no-nordeste-em-2023-37d05139c2bc"
+              target="_blank" class="project-link">Artigo →</a>
+          </div>
         </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">Languages &amp; Data</div>
-        <div class="skill-chips">
-          <span class="chip featured">Python</span>
-          <span class="chip featured">SQL</span>
-          <span class="chip">Pandas</span>
-          <span class="chip">NumPy</span>
-          <span class="chip">SQLAlchemy</span>
-          <span class="chip">FastAPI</span>
-          <span class="chip">Scikit-learn</span>
-          <span class="chip">Matplotlib</span>
-          <span class="chip">Seaborn</span>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-category">Visualização de Dados · Energia</span>
+          </div>
+          <div class="project-title">Dashboard Interativo — Interrupções Elétricas</div>
+          <p class="project-desc">Dashboard em Streamlit construído sobre a análise da ANEEL, com filtros dinâmicos por
+            mês, causa da interrupção, responsabilidade e motivo de expurgo. Transforma a análise estática em uma
+            ferramenta explorável e interativa.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Streamlit</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag">Matplotlib</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/victorcbarros/Analise-rede-eletrica-nordeste" target="_blank"
+              class="project-link">GitHub →</a>
+            <a href="https://datascienceportfol.io/victorcbarros/projects/1" target="_blank" class="project-link">Demo
+              →</a>
+          </div>
         </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">Data Engineering</div>
-        <div class="skill-chips">
-          <span class="chip featured">Snowflake</span>
-          <span class="chip featured">dbt Core</span>
-          <span class="chip featured">Apache Airflow</span>
-          <span class="chip">ETL / ELT</span>
-          <span class="chip">AWS S3</span>
-          <span class="chip">Databricks</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">SAP HANA</span>
-          <span class="chip">REST APIs</span>
-          <span class="chip">Docker</span>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-category">Engenharia de Dados · API</span>
+          </div>
+          <div class="project-title">CB Rent — Sistema de Gestão de Veículos</div>
+          <p class="project-desc">Aplicação CRUD completa para gestão de locadora de veículos. Backend em FastAPI com
+            API REST completa, frontend em Streamlit, banco de dados PostgreSQL, ORM com SQLAlchemy, validação com
+            Pydantic e containerização via Docker.</p>
+          <div class="project-tags">
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Streamlit</span>
+            <span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">SQLAlchemy</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/victorcbarros/crud_fastapi" target="_blank" class="project-link">GitHub →</a>
+            <a href="https://datascienceportfol.io/victorcbarros/projects/2" target="_blank"
+              class="project-link">Portfolio →</a>
+          </div>
         </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">AI &amp; Methodology</div>
-        <div class="skill-chips">
-          <span class="chip featured">LLMs</span>
-          <span class="chip">OpenAI API</span>
-          <span class="chip">RAG</span>
-          <span class="chip">Prompt Engineering</span>
-          <span class="chip">Lean Six Sigma Green Belt</span>
-          <span class="chip">Root Cause Analysis</span>
-          <span class="chip">Git</span>
-          <span class="chip">Linux / Bash</span>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-category">Business Intelligence · Análise de Mercado</span>
+            <span class="badge-featured">Nota 10/10</span>
+          </div>
+          <div class="project-title">Análise do Mercado de Exportação de Vinhos Brasileiros</div>
+          <p class="project-desc">Tech Challenge da FIAP analisando 15 anos de dados de importação e exportação de
+            vinhos brasileiros para gerar relatórios estratégicos voltados a investidores. Nota máxima. Projeto em
+            equipe combinando EDA, visualização e storytelling de negócio.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag">Power BI</span>
+            <span class="project-tag">Seaborn</span>
+            <span class="project-tag">Business Analysis</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/victorcbarros" target="_blank" class="project-link">GitHub →</a>
+          </div>
         </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-label">Work &amp; Projects</div>
-    <h2 class="section-title">What I've <span>Built</span></h2>
-    <div class="projects-grid">
-
-      <!-- Project 1 -->
-      <div class="project-card featured">
-        <div class="project-header">
-          <span class="project-category">Data Analysis · Energy</span>
-          <span class="badge-featured">Published</span>
-        </div>
-        <div class="project-title">Electrical Grid Outage Analysis — Northeast Brazil</div>
-        <p class="project-desc">Analyzed 2023 outage data across the Northeast Brazilian distribution network using ANEEL public datasets. Investigated frequency, duration, consumer impact, and correlation with rainfall patterns. Research published in the Brazilian Journal of Development.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Pandas</span>
-          <span class="project-tag">Matplotlib</span>
-          <span class="project-tag">NumPy</span>
-          <span class="project-tag">Statistical Analysis</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/victorcbarros/Analise-rede-eletrica-nordeste" target="_blank" class="project-link">GitHub →</a>
-          <a href="https://medium.com/@victorcbarros/análise-de-dados-das-interrupções-no-sistema-elétrico-de-distribuição-no-nordeste-em-2023-37d05139c2bc" target="_blank" class="project-link">Article →</a>
-        </div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Entre em contato</div>
+      <h2 class="section-title">Vamos <span>Conversar</span></h2>
+      <p class="contact-sub">Aberto a novas oportunidades, colaborações e problemas interessantes de dados. Fique à
+        vontade para entrar em contato.</p>
+      <div class="contact-links">
+        <a href="mailto:victorbarros51@gmail.com" class="btn btn-primary">Enviar E-mail</a>
+        <a href="https://linkedin.com/in/victorcbarros" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://github.com/victorcbarros" target="_blank" class="btn btn-outline">GitHub</a>
       </div>
-
-      <!-- Project 2 -->
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-category">Data Visualization · Energy</span>
-        </div>
-        <div class="project-title">Interactive Grid Analytics Dashboard</div>
-        <p class="project-desc">Interactive Streamlit dashboard built on top of the ANEEL outage analysis, enabling dynamic filtering by month, outage cause, responsibility, and expurgation motive. Transforms the static analysis into an explorable, real-time tool.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Streamlit</span>
-          <span class="project-tag">Pandas</span>
-          <span class="project-tag">Matplotlib</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/victorcbarros/Analise-rede-eletrica-nordeste" target="_blank" class="project-link">GitHub →</a>
-          <a href="https://datascienceportfol.io/victorcbarros/projects/1" target="_blank" class="project-link">Live →</a>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-category">Data Engineering · API</span>
-        </div>
-        <div class="project-title">CB Rent — Vehicle Management System</div>
-        <p class="project-desc">End-to-end CRUD application for vehicle rental management. FastAPI backend with full REST API, Streamlit frontend, PostgreSQL database, SQLAlchemy ORM, Pydantic validation, and Docker containerization for portable deployment.</p>
-        <div class="project-tags">
-          <span class="project-tag">FastAPI</span>
-          <span class="project-tag">Streamlit</span>
-          <span class="project-tag">PostgreSQL</span>
-          <span class="project-tag">Docker</span>
-          <span class="project-tag">SQLAlchemy</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/victorcbarros/crud_fastapi" target="_blank" class="project-link">GitHub →</a>
-          <a href="https://datascienceportfol.io/victorcbarros/projects/2" target="_blank" class="project-link">Portfolio →</a>
-        </div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-category">Business Intelligence · Market Analysis</span>
-          <span class="badge-featured">Grade 10/10</span>
-        </div>
-        <div class="project-title">Brazilian Wine Export Market Analysis</div>
-        <p class="project-desc">FIAP Tech Challenge analyzing 15 years of Brazilian wine import/export data to produce investor-focused reports with strategic insights and market forecasting. Achieved maximum grade. Team project combining EDA, visualization, and business storytelling.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Pandas</span>
-          <span class="project-tag">Power BI</span>
-          <span class="project-tag">Seaborn</span>
-          <span class="project-tag">Business Analysis</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/victorcbarros" target="_blank" class="project-link">GitHub →</a>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-label">Get in touch</div>
-    <h2 class="section-title">Let's <span>Connect</span></h2>
-    <p class="contact-sub">Open to new opportunities, collaborations, and interesting data problems. Feel free to reach out.</p>
-    <div class="contact-links">
-      <a href="mailto:victorbarros51@gmail.com" class="btn btn-primary">Send an Email</a>
-      <a href="https://linkedin.com/in/victorcbarros" target="_blank" class="btn btn-outline">LinkedIn</a>
-      <a href="https://github.com/victorcbarros" target="_blank" class="btn btn-outline">GitHub</a>
-    </div>
-  </div>
-</section>
+  <!-- FOOTER -->
+  <footer>
+    <p>Desenvolvido por <a href="#">Victor Barros</a> · <a href="https://github.com/victorcbarros"
+        target="_blank">victorcbarros.github.io</a></p>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <p>Designed &amp; built by <a href="#">Victor Barros</a> · <a href="https://github.com/victorcbarros" target="_blank">victorcbarros.github.io</a></p>
-</footer>
+  <script>
+    // NAV scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
 
-<script>
-  // NAV scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+    // CONSTELLATION canvas
+    const canvas = document.getElementById('constellation');
+    const ctx = canvas.getContext('2d');
+    let W, H, nodes = [], animId;
 
-  // CONSTELLATION canvas
-  const canvas = document.getElementById('constellation');
-  const ctx = canvas.getContext('2d');
-  let W, H, nodes = [], animId;
-
-  function resize() {
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function initNodes(n = 55) {
-    nodes = [];
-    for (let i = 0; i < n; i++) {
-      nodes.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.28,
-        vy: (Math.random() - 0.5) * 0.28,
-        r: Math.random() * 1.8 + 0.8
-      });
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
     }
-  }
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const maxDist = 130;
-
-    // edges
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < maxDist) {
-          const alpha = (1 - d / maxDist) * 0.45;
-          ctx.strokeStyle = `rgba(0,200,200,${alpha})`;
-          ctx.lineWidth = 0.55;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.stroke();
-        }
+    function initNodes(n = 55) {
+      nodes = [];
+      for (let i = 0; i < n; i++) {
+        nodes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: (Math.random() - 0.5) * 0.28,
+          r: Math.random() * 1.8 + 0.8
+        });
       }
     }
 
-    // nodes
-    nodes.forEach(n => {
-      ctx.fillStyle = 'rgba(0,200,200,0.75)';
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fill();
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const maxDist = 130;
 
-      // move
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
-    });
+      // edges
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < maxDist) {
+            const alpha = (1 - d / maxDist) * 0.45;
+            ctx.strokeStyle = `rgba(0,200,200,${alpha})`;
+            ctx.lineWidth = 0.55;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
 
-    animId = requestAnimationFrame(draw);
-  }
+      // nodes
+      nodes.forEach(n => {
+        ctx.fillStyle = 'rgba(0,200,200,0.75)';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
 
-  function init() {
-    resize();
-    initNodes();
-    if (animId) cancelAnimationFrame(animId);
-    draw();
-  }
+        // move
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      });
 
-  window.addEventListener('resize', init);
-  init();
-</script>
+      animId = requestAnimationFrame(draw);
+    }
+
+    function init() {
+      resize();
+      initNodes();
+      if (animId) cancelAnimationFrame(animId);
+      draw();
+    }
+
+    window.addEventListener('resize', init);
+    init();
+  </script>
 </body>
+
 </html>
